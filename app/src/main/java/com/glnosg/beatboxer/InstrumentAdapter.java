@@ -11,8 +11,6 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Created by pawel on 07.10.17.
  */
@@ -45,7 +43,7 @@ public class InstrumentAdapter extends ArrayAdapter {
         Instrument currentInstrument = (Instrument) getItem(position);
 
         Button hearTheSoundButton = (Button) myView.findViewById(R.id.hear_the_sound_button);
-        hearTheSoundButton.setText(currentInstrument.getInstrumentName());
+        hearTheSoundButton.setText(currentInstrument.getName());
 
         return myView;
     }

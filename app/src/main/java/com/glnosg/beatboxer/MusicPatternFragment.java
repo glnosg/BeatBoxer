@@ -22,14 +22,15 @@ public class MusicPatternFragment extends Fragment{
 
         ArrayList<Instrument> instrumentList = new ArrayList<>();
 
-        instrumentList.add(new Instrument("Hi-Hat"));
-        instrumentList.add(new Instrument("Clap"));
-        instrumentList.add(new Instrument("Snare"));
-        instrumentList.add(new Instrument("Cowbell"));
-        instrumentList.add(new Instrument("Kick"));
-        instrumentList.add(new Instrument("Tom"));
-        instrumentList.add(new Instrument("Cymbal"));
-        instrumentList.add(new Instrument("Radzio Kutas"));
+        instrumentList.add(new Instrument("Clap", R.raw.clap));
+        instrumentList.add(new Instrument("Close Flam", R.raw.close_flam));
+        instrumentList.add(new Instrument("Close Hi-Hat", R.raw.close_hi_hat));
+        instrumentList.add(new Instrument("Close Kick", R.raw.close_kick));
+        instrumentList.add(new Instrument("Close Op-Hat", R.raw.close_op_hat));
+        instrumentList.add(new Instrument("Close Rim", R.raw.close_rim));
+        instrumentList.add(new Instrument("Close SdSt", R.raw.close_sd_st));
+        instrumentList.add(new Instrument("Close Snare", R.raw.close_snr));
+        instrumentList.add(new Instrument("Close Snare Off", R.raw.close_snr_off));
 
 
         InstrumentAdapter instrumentAdapter = new InstrumentAdapter(getActivity(), instrumentList);

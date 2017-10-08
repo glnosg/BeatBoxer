@@ -8,12 +8,23 @@ package com.glnosg.beatboxer;
 public class Instrument {
 
     private String mInstrumentName;
+    private int mSoundSrcID;
 
-    public Instrument (String name) {
+    /**
+     *
+     * @param name - name of the instrument
+     * @param soundID - ID of sound resource
+     */
+    public Instrument (String name, int soundID) {
         mInstrumentName = name;
+        mSoundSrcID = soundID;
     }
 
-    public String getInstrumentName() {
+    public String getName() {
         return mInstrumentName;
+    }
+
+    public int getSoundID() {
+        return mSoundSrcID;
     }
 }

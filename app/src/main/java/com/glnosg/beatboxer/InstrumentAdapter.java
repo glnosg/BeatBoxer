@@ -1,13 +1,17 @@
 package com.glnosg.beatboxer;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,14 @@ import java.util.ArrayList;
  */
 
 public class InstrumentAdapter extends ArrayAdapter {
+
+    private MediaPlayer mMediaPlayer;
+    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
 
     /**
      * @param context - Current context
@@ -40,11 +52,27 @@ public class InstrumentAdapter extends ArrayAdapter {
             myView = LayoutInflater.from(getContext()).inflate(R.layout.instruments_list_item, parent, false);
         }
 
-        Instrument currentInstrument = (Instrument) getItem(position);
+        final Instrument currentInstrument = (Instrument) getItem(position);
 
         Button hearTheSoundButton = (Button) myView.findViewById(R.id.hear_the_sound_button);
         hearTheSoundButton.setText(currentInstrument.getName());
+        hearTheSoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                releaseMediaPlayer();
+                mMediaPlayer = MediaPlayer.create(getContext(), currentInstrument.getSoundID());
+                mMediaPlayer.start();
+                mMediaPlayer.setOnCompletionListener(onCompletionListener);
+            }
+        });
 
         return myView;
+    }
+
+    public void releaseMediaPlayer() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 }

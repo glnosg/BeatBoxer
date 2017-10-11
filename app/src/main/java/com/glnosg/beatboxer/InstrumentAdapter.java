@@ -1,17 +1,16 @@
 package com.glnosg.beatboxer;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.CheckBox;
+import android.widget.TableLayout;
 
 import java.util.ArrayList;
 
@@ -65,6 +64,25 @@ public class InstrumentAdapter extends ArrayAdapter {
                 mMediaPlayer.setOnCompletionListener(onCompletionListener);
             }
         });
+
+        ViewGroup checkboxesLayout = (ViewGroup) myView.findViewById(R.id.checkboxes_layout);
+        checkboxesLayout.removeAllViews();
+        for (int i = 0; i < currentInstrument.stateOfCheckBoxes.length; i++) {
+            final int currentCheckBox = i;
+
+            CheckBox cb = new CheckBox(getContext());
+            cb.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
+            cb.setChecked(currentInstrument.stateOfCheckBoxes[i]);
+
+            checkboxesLayout.addView(cb);
+
+            cb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentInstrument.stateOfCheckBoxes[currentCheckBox] = !currentInstrument.stateOfCheckBoxes[currentCheckBox];
+                }
+            });
+        }
 
         return myView;
     }

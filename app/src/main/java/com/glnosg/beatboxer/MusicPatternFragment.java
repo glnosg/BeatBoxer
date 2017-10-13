@@ -1,6 +1,7 @@
 package com.glnosg.beatboxer;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
  * Created by pawel on 07.10.17.
  */
 
-public class MusicPatternFragment extends Fragment{
+public class MusicPatternFragment extends Fragment {
+
+    private OnDataPass dataPasser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class MusicPatternFragment extends Fragment{
         instrumentList.add(new Instrument("Close Snare", R.raw.close_snr, getActivity()));
         instrumentList.add(new Instrument("Close Snare Off", R.raw.close_snr_off, getActivity()));
 
+        String as = "Elo";
+        passData(as);
 
         InstrumentAdapter instrumentAdapter = new InstrumentAdapter(getActivity(), instrumentList);
 
@@ -39,5 +44,19 @@ public class MusicPatternFragment extends Fragment{
         listView.setAdapter(instrumentAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+    }
+
+    public interface OnDataPass {
+        public void onDataPass(String data);
+    }
+
+    public void passData(String data) {
+        dataPasser.onDataPass(data);
     }
 }

@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import static android.R.id.button1;
+import static android.R.id.button2;
 
 /**
  * Created by pawel on 07.10.17.
@@ -19,6 +23,29 @@ public class ControlPanelFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_control_panel, container, false);
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.play_button:
+                        mCallback.onOptionSelectedPlay();
+                        break;
+                    case R.id.stop_button:
+                        mCallback.onOptionSelectedStop();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        Button playButton = (Button) view.findViewById(R.id.play_button);
+        Button stopButton = (Button) view.findViewById(R.id.stop_button);
+
+        playButton.setOnClickListener(clickListener);
+        stopButton.setOnClickListener(clickListener);
+
         return view;
     }
 
@@ -35,6 +62,7 @@ public class ControlPanelFragment extends Fragment {
     }
 
     public interface OnButtonClickListener {
-        public void onOptionSelected();
+        public void onOptionSelectedPlay();
+        public void onOptionSelectedStop();
     }
 }
